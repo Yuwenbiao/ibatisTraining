@@ -22,13 +22,16 @@ public class IBatisDemo {
     private SqlMapClient sqlMap;
 
     public static void main(String[] args) throws IOException, SQLException {
-
+        IBatisDemo iBatisDemo = new IBatisDemo();
+        iBatisDemo.doAction();
     }
 
-    public void doAction() throws IOException {
+    public void doAction() throws IOException, SQLException {
         String config = "SqlMapConfig.xml";
         Reader reader = Resources.getResourceAsReader(config);
         sqlMap = SqlMapClientBuilder.buildSqlMapClient(reader);
+
+        System.out.println(insert());
     }
 
     /**
