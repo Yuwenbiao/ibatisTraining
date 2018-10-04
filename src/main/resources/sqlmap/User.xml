@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap
+        PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+    <typeAlias alias="User" type="com.example.demo.entity.User"/>
+    <typeAlias alias="parameterMap" type="com.example.demo.util.ParameterMap"/>
+
+    <!--查询所有user信息，查询结果为User类-->
+    <select id="getAllUsers" resultClass="User">
+        select *
+        from users
+    </select>
+
+    <!--查询所有user信息，查询结果为HashMap-->
+    <select id="getAllUsers1" resultClass="java.util.HashMap">
+        select *
+        from users
+    </select>
+
+    <!--根据用户名查询user信息-->
+    <select id="getUserByName" parameterClass="java.lang.String" resultClass="java.util.HashMap">
+        select *
+        from users
+        where username=#VARCHAR#
+    </select>
+
+    <!--根据用户名和手机号查询user信息-->
+    <select id="getUserByRealNameAndMobile" parameterClass="parameterMap" resultClass="java.util.HashMap">
+        select *
+        from users
+        where username=#username:VARCHAR# and mobile=#mobile:VARCHAR#
+    </select>
+
+    <!--插入一条user信息-->
+    <insert id="addUser" parameterClass="parameterMap">
+        insert into users(USERNAME,PASSWORD,MOBILE,EMAIL)
+        values(#userName:VARCHAR#,#password:VARCHAR#,#mobile:VARCHAR#,#email:VARCHAR#)
+    </insert>
+
+    <!--更新user信息-->
+    <update id="updateUser">
+        update users
+        set PASSWORD='123456'
+    </update>
+
+    <!--删除user信息-->
+    <delete id="deleteUser" parameterClass="java.lang.Integer">
+        delete from users
+        where ID=#INT#
+    </delete>
+</sqlMap>
